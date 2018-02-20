@@ -1,6 +1,6 @@
 {
   "name": "@adonisjs/websocket-packet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Verify,create adonis websocket packets",
   "main": "index.js",
   "browser": "browser.js",
@@ -12,9 +12,9 @@
   "scripts": {
     "build": "babel --out-file=browser.js index.js --presets=env",
     "lint": "standard",
-    "prepublishOnly": "npm run build && npm run test",
+    "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
-    "test": "japa",
+    "test": "nyc japa",
     "posttest": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
@@ -36,5 +36,8 @@
   },
   "standard": {
     "ignore": ["browser.js"]
+  },
+  "nyc": {
+    "exclude": ["browser.js"]
   }
 }

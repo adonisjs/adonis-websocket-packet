@@ -3,6 +3,10 @@ This library is used to create/validate the websocket packets used by AdonisJs.
 
 If you are writing a Javascript client, this is the library you must use. When writing client libraries for other platforms, simply follow the docs and the code to create your implementations.
 
+[![Travis](https://img.shields.io/travis/adonisjs/adonis-websocket-packet.svg?style=for-the-badge)](https://github.com/adonisjs/adonis-websocket-packet)
+[![Travis](https://img.shields.io/coveralls/adonisjs/adonis-websocket-packet.svg?style=for-the-badge)](https://github.com/adonisjs/adonis-websocket-packet)
+
+
 ```bash
 npm i --save @adonisjs/websocket-packet
 ```
