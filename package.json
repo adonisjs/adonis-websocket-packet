@@ -36,5 +36,8 @@
   },
   "standard": {
     "ignore": ["browser.js"]
+  },
+  "nyc": {
+    "exclude": ["browser.js"]
   }
 }
