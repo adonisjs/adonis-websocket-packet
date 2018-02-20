@@ -12,7 +12,7 @@
   "scripts": {
     "build": "babel --out-file=browser.js index.js --presets=env",
     "lint": "standard",
-    "prepublishOnly": "npm run build && npm run test",
+    "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
     "test": "japa",
     "posttest": "nyc report --reporter=text-lcov | coveralls"
