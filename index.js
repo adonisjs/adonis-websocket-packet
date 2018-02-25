@@ -43,12 +43,39 @@ const codes = {
   PONG: 9
 }
 
+/**
+ * Makes sure value is a string. Otherwise exception
+ * is raised
+ *
+ * @method ensureString
+ *
+ * @param  {String}     input
+ * @param  {String}     message
+ *
+ * @return {void}
+ *
+ * @private
+ */
 function ensureString (input, message) {
   if (!input || typeof (input) !== 'string') {
     throw new Error(message)
   }
 }
 
+/**
+ * Makes a packet, by ensuring all required properties
+ * exists inside the `props` object
+ *
+ * @method makePacket
+ *
+ * @param  {Number}   code
+ * @param  {Object}   props
+ * @param  {Array}   requiredProps
+ *
+ * @return {Object}
+ *
+ * @private
+ */
 function makePacket (code, props, requiredProps) {
   requiredProps.forEach((rP) => {
     ensureString(props[rP], `expected ${rP} to be a valid string`)
@@ -56,6 +83,9 @@ function makePacket (code, props, requiredProps) {
   return { t: code, d: props }
 }
 
+/**
+ * Fns to be exported
+ */
 const fns = {}
 
 /**
