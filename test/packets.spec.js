@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
 */
 
-const packet = require('../browser')
+const packet = require('..')
 const test = require('japa')
 
 test.group('Packets', () => {
