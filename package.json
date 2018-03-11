@@ -49,5 +49,16 @@
       "test"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adonisjs/adonis-websocket-packet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adonisjs/adonis-websocket-packet/issues"
+  },
+  "homepage": "https://github.com/adonisjs/adonis-websocket-packet#readme"
 }
