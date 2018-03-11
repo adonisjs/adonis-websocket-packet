@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
 */
 
-const packet = require('..')
-const test = require('japa')
+import packet from '../../dist/wsp.es.js'
 
-test.group('Packets', () => {
+group('Packets', () => {
   test('make sure all codes exists', (assert) => {
     assert.deepEqual(packet.codes, {
       OPEN: 0,
@@ -65,7 +64,7 @@ test.group('Packets', () => {
   })
 })
 
-test.group('JOIN', () => {
+group('JOIN', () => {
   test('return true when packet is valid join packet', (assert) => {
     assert.isTrue(packet.isJoinPacket({ t: packet.codes.JOIN }))
   })
@@ -87,7 +86,7 @@ test.group('JOIN', () => {
   })
 })
 
-test.group('LEAVE', () => {
+group('LEAVE', () => {
   test('return true when packet is valid leave packet', (assert) => {
     assert.isTrue(packet.isLeavePacket({ t: packet.codes.LEAVE }))
   })
@@ -109,7 +108,7 @@ test.group('LEAVE', () => {
   })
 })
 
-test.group('OPEN', () => {
+group('OPEN', () => {
   test('return true when packet is valid open packet', (assert) => {
     assert.isTrue(packet.isOpenPacket({ t: packet.codes.OPEN }))
   })
@@ -119,7 +118,7 @@ test.group('OPEN', () => {
   })
 })
 
-test.group('JOIN_ACK', () => {
+group('JOIN_ACK', () => {
   test('return true when packet is valid join ack packet', (assert) => {
     assert.isTrue(packet.isJoinAckPacket({ t: packet.codes.JOIN_ACK }))
   })
@@ -141,7 +140,7 @@ test.group('JOIN_ACK', () => {
   })
 })
 
-test.group('JOIN_ERROR', () => {
+group('JOIN_ERROR', () => {
   test('return true when packet is valid join error packet', (assert) => {
     assert.isTrue(packet.isJoinErrorPacket({ t: packet.codes.JOIN_ERROR }))
   })
@@ -168,7 +167,7 @@ test.group('JOIN_ERROR', () => {
   })
 })
 
-test.group('LEAVE_ACK', () => {
+group('LEAVE_ACK', () => {
   test('return true when packet is valid leave ack packet', (assert) => {
     assert.isTrue(packet.isLeaveAckPacket({ t: packet.codes.LEAVE_ACK }))
   })
@@ -190,7 +189,7 @@ test.group('LEAVE_ACK', () => {
   })
 })
 
-test.group('LEAVE_ERROR', () => {
+group('LEAVE_ERROR', () => {
   test('return true when packet is valid leave error packet', (assert) => {
     assert.isTrue(packet.isLeaveErrorPacket({ t: packet.codes.LEAVE_ERROR }))
   })
@@ -217,7 +216,7 @@ test.group('LEAVE_ERROR', () => {
   })
 })
 
-test.group('EVENT', () => {
+group('EVENT', () => {
   test('return true when packet is valid event packet', (assert) => {
     assert.isTrue(packet.isEventPacket({ t: packet.codes.EVENT }))
   })
@@ -227,34 +226,29 @@ test.group('EVENT', () => {
   })
 
   test('make event packet', (assert) => {
-    assert.deepEqual(packet.eventPacket('chat', { event: 'greeting', data: 'hello world' }), {
+    assert.deepEqual(packet.eventPacket('chat', 'greeting', 'hello world'), {
       t: packet.codes.EVENT,
-      d: { topic: 'chat', body: { event: 'greeting', data: 'hello world' } }
+      d: { topic: 'chat', event: 'greeting', data: 'hello world' }
     })
   })
 
   test('throw error when event body doesnt have event property', (assert) => {
-    const fn = () => packet.eventPacket('chat', { data: 'hello world' })
-    assert.throw(fn, 'event body must have event and data property')
+    const fn = () => packet.eventPacket('chat', null, 'hello world')
+    assert.throw(fn, 'expected event to be a valid string')
   })
 
   test('throw error when event body doesnt have data property', (assert) => {
-    const fn = () => packet.eventPacket('chat', { event: 'greeting' })
-    assert.throw(fn, 'event body must have event and data property')
-  })
-
-  test('throw error when event body is undefined', (assert) => {
-    const fn = () => packet.eventPacket('chat')
-    assert.throw(fn, 'event body must have event and data property')
+    const fn = () => packet.eventPacket('chat', 'greeting')
+    assert.throw(fn, 'eventPacket expects data to be passed as 3rd argument')
   })
 
   test('throw error when event topic is undefined', (assert) => {
-    const fn = () => packet.eventPacket(null, { event: 'greeting', data: 'hello world' })
+    const fn = () => packet.eventPacket(null, '', 'hello world')
     assert.throw(fn, 'expected topic to be a valid string')
   })
 })
 
-test.group('PING', () => {
+group('PING', () => {
   test('return true when packet is valid ping packet', (assert) => {
     assert.isTrue(packet.isPingPacket({ t: packet.codes.PING }))
   })
@@ -270,7 +264,7 @@ test.group('PING', () => {
   })
 })
 
-test.group('PONG', () => {
+group('PONG', () => {
   test('return true when packet is valid pong packet', (assert) => {
     assert.isTrue(packet.isPongPacket({ t: packet.codes.PONG }))
   })
