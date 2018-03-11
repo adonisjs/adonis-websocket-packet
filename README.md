@@ -4,19 +4,31 @@ This library is used to create/validate the websocket packets used by AdonisJs.
 If you are writing a Javascript client, this is the library you must use. When writing client libraries for other platforms, simply follow the docs and the code to create your implementations.
 
 [![Travis](https://img.shields.io/travis/adonisjs/adonis-websocket-packet.svg?style=for-the-badge)](https://github.com/adonisjs/adonis-websocket-packet)
-[![Travis](https://img.shields.io/coveralls/adonisjs/adonis-websocket-packet.svg?style=for-the-badge)](https://github.com/adonisjs/adonis-websocket-packet)
 
+## Installation
 
+## Node/Webpack
 ```bash
 npm i --save @adonisjs/websocket-packet
 ```
 
-## Usage
 ```js
-const wsp = require('@adonisjs/websocket-packet') 
-console.log(wsp.codes)
+const wsp = require('@adonisjs/websocket-packet')
 
+// or
+import wsp from '@adonisjs/websocket-packet'
+
+console.log(wsp.codes)
 wsp.isJoinPacket(packet)
+```
+
+## CDN
+```html
+<script src="https://unpkg.com/@adonisjs/websocket-packet"></script>
+<script type="text/javascript">
+  console.log(adonis.wsp.codes)
+  console.log(adonis.wsp.isJoinPacket(packet))
+</script>
 ```
 
 ## Constants
@@ -24,6 +36,9 @@ wsp.isJoinPacket(packet)
 <dl>
 <dt><a href="#codes">codes</a> : <code>Object</code></dt>
 <dd><p>Packet codes. The actual packet will have the numbers</p>
+</dd>
+<dt><a href="#fns">fns</a></dt>
+<dd><p>Fns to be exported</p>
 </dd>
 </dl>
 
@@ -93,7 +108,7 @@ before calling this method.</p>
 <dt><a href="#leaveErrorPacket">leaveErrorPacket(topic, message)</a> ⇒ <code>Object</code></dt>
 <dd><p>Makes leave error packet</p>
 </dd>
-<dt><a href="#eventPacket">eventPacket(topic, body)</a> ⇒ <code>Object</code></dt>
+<dt><a href="#eventPacket">eventPacket(topic, event, data)</a> ⇒ <code>Object</code></dt>
 <dd><p>Makes the event packet</p>
 </dd>
 <dt><a href="#pingPacket">pingPacket()</a> ⇒ <code>Object</code></dt>
@@ -123,9 +138,14 @@ Packet codes. The actual packet will have the numbers
  EVENT: 7,
  PING: 8,
  PONG: 9
-
 }
 ```
+<a name="fns"></a>
+
+## fns
+Fns to be exported
+
+**Kind**: global constant  
 <a name="isJoinPacket"></a>
 
 ## isJoinPacket(packet) ⇒ <code>Boolean</code>
@@ -364,21 +384,22 @@ Makes leave error packet
 
 <a name="eventPacket"></a>
 
-## eventPacket(topic, body) ⇒ <code>Object</code>
+## eventPacket(topic, event, data) ⇒ <code>Object</code>
 Makes the event packet
 
 **Kind**: global function  
 **Throws**:
 
 - <code>Error</code> If topic is not defined or not a string
-- <code>Error</code> If body.event is not defined
-- <code>Error</code> If body.data is not defined
+- <code>Error</code> If event is not defined
+- <code>Error</code> If data is not defined
 
 
 | Param | Type |
 | --- | --- |
 | topic | <code>String</code> | 
-| body | <code>Object</code> | 
+| event | <code>String</code> | 
+| data | <code>Mixed</code> | 
 
 <a name="pingPacket"></a>
 

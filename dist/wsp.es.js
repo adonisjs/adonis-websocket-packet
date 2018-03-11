@@ -1,4 +1,8 @@
-'use strict'
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 /**
  * adonis-websocket-packet
@@ -30,7 +34,8 @@
  * }
  * ```
  */
-const codes = {
+
+var codes = {
   OPEN: 0,
   JOIN: 1,
   LEAVE: 2,
@@ -41,24 +46,23 @@ const codes = {
   EVENT: 7,
   PING: 8,
   PONG: 9
-}
 
-/**
- * Makes sure value is a string. Otherwise exception
- * is raised
- *
- * @method ensureString
- *
- * @param  {String}     input
- * @param  {String}     message
- *
- * @return {void}
- *
- * @private
- */
-function ensureString (input, message) {
-  if (!input || typeof (input) !== 'string') {
-    throw new Error(message)
+  /**
+   * Makes sure value is a string. Otherwise exception
+   * is raised
+   *
+   * @method ensureString
+   *
+   * @param  {String}     input
+   * @param  {String}     message
+   *
+   * @return {void}
+   *
+   * @private
+   */
+};function ensureString(input, message) {
+  if (!input || typeof input !== 'string') {
+    throw new Error(message);
   }
 }
 
@@ -76,17 +80,17 @@ function ensureString (input, message) {
  *
  * @private
  */
-function makePacket (code, props, requiredProps) {
-  requiredProps.forEach((rP) => {
-    ensureString(props[rP], `expected ${rP} to be a valid string`)
-  })
-  return { t: code, d: props }
+function makePacket(code, props, requiredProps) {
+  requiredProps.forEach(function (rP) {
+    ensureString(props[rP], 'expected ' + rP + ' to be a valid string');
+  });
+  return { t: code, d: props };
 }
 
 /**
  * Fns to be exported
  */
-const fns = {}
+var fns = {};
 
 /**
  * Validates if packet code is a `JOIN` code.
@@ -194,10 +198,14 @@ const fns = {}
  * `OPEN` will have `isOpenPacket` method
  * `LEAVE_ACK` will have `isLeaveAckPacket` method
  */
-Object.keys(codes).forEach((name) => {
-  const fnName = name.toLowerCase().replace(/^\w|_(\w)/g, (w, m) => m ? m.toUpperCase() : w.toUpperCase())
-  fns[`is${fnName}Packet`] = (packet) => !!(packet && typeof (packet) === 'object' && packet.t === codes[name])
-})
+Object.keys(codes).forEach(function (name) {
+  var fnName = name.toLowerCase().replace(/^\w|_(\w)/g, function (w, m) {
+    return m ? m.toUpperCase() : w.toUpperCase();
+  });
+  fns['is' + fnName + 'Packet'] = function (packet) {
+    return !!(packet && (typeof packet === 'undefined' ? 'undefined' : _typeof(packet)) === 'object' && packet.t === codes[name]);
+  };
+});
 
 /**
  * Finding if a packet has a topic.
@@ -209,8 +217,8 @@ Object.keys(codes).forEach((name) => {
  * @return {Boolean}
  */
 fns.hasTopic = function (packet) {
-  return !!(packet && packet.d && packet.d.topic)
-}
+  return !!(packet && packet.d && packet.d.topic);
+};
 
 /**
  * Makes sure packet is a valid join packet. Do call `isJoinPacket`
@@ -220,7 +228,7 @@ fns.hasTopic = function (packet) {
  *
  * @type {Boolean}
  */
-fns.isValidJoinPacket = fns.hasTopic
+fns.isValidJoinPacket = fns.hasTopic;
 
 /**
  * Makes sure packet is a valid leave packet. Do call `isLeavePacket`
@@ -230,7 +238,7 @@ fns.isValidJoinPacket = fns.hasTopic
  *
  * @type {Boolean}
  */
-fns.isValidLeavePacket = fns.hasTopic
+fns.isValidLeavePacket = fns.hasTopic;
 
 /**
  * Makes sure packet is a valid event packet. Do call `isEventPacket`
@@ -240,7 +248,7 @@ fns.isValidLeavePacket = fns.hasTopic
  *
  * @type {Boolean}
  */
-fns.isValidEventPacket = fns.hasTopic
+fns.isValidEventPacket = fns.hasTopic;
 
 /**
  * Makes a join packet
@@ -254,8 +262,8 @@ fns.isValidEventPacket = fns.hasTopic
  * @throws {Error} If topic is not defined or not a string
  */
 fns.joinPacket = function (topic) {
-  return makePacket(codes.JOIN, { topic }, ['topic'])
-}
+  return makePacket(codes.JOIN, { topic: topic }, ['topic']);
+};
 
 /**
  * Makes a leave packet
@@ -269,8 +277,8 @@ fns.joinPacket = function (topic) {
  * @throws {Error} If topic is not defined or not a string
  */
 fns.leavePacket = function (topic) {
-  return makePacket(codes.LEAVE, { topic }, ['topic'])
-}
+  return makePacket(codes.LEAVE, { topic: topic }, ['topic']);
+};
 
 /**
  * Makes join acknowledge packet
@@ -284,8 +292,8 @@ fns.leavePacket = function (topic) {
  * @throws {Error} If topic is not defined or is not a string
  */
 fns.joinAckPacket = function (topic) {
-  return makePacket(codes.JOIN_ACK, { topic }, ['topic'])
-}
+  return makePacket(codes.JOIN_ACK, { topic: topic }, ['topic']);
+};
 
 /**
  * Makes join error packet
@@ -301,8 +309,8 @@ fns.joinAckPacket = function (topic) {
  * @throws {Error} If message is not defined or not a string
  */
 fns.joinErrorPacket = function (topic, message) {
-  return makePacket(codes.JOIN_ERROR, { topic, message }, ['topic', 'message'])
-}
+  return makePacket(codes.JOIN_ERROR, { topic: topic, message: message }, ['topic', 'message']);
+};
 
 /**
  * Makes leave packet
@@ -316,8 +324,8 @@ fns.joinErrorPacket = function (topic, message) {
  * @throws {Error} If topic is not defined or not a string
  */
 fns.leaveAckPacket = function (topic) {
-  return makePacket(codes.LEAVE_ACK, { topic }, ['topic'])
-}
+  return makePacket(codes.LEAVE_ACK, { topic: topic }, ['topic']);
+};
 
 /**
  * Makes leave error packet
@@ -333,8 +341,8 @@ fns.leaveAckPacket = function (topic) {
  * @throws {Error} If message is not defined or not a string
  */
 fns.leaveErrorPacket = function (topic, message) {
-  return makePacket(codes.LEAVE_ERROR, { topic, message }, ['topic', 'message'])
-}
+  return makePacket(codes.LEAVE_ERROR, { topic: topic, message: message }, ['topic', 'message']);
+};
 
 /**
  * Makes the event packet
@@ -353,10 +361,10 @@ fns.leaveErrorPacket = function (topic, message) {
  */
 fns.eventPacket = function (topic, event, data) {
   if (!data) {
-    throw new Error('eventPacket expects data to be passed as 3rd argument')
+    throw new Error('eventPacket expects data to be passed as 3rd argument');
   }
-  return makePacket(codes.EVENT, { topic, event, data }, ['topic', 'event'])
-}
+  return makePacket(codes.EVENT, { topic: topic, event: event, data: data }, ['topic', 'event']);
+};
 
 /**
  * Makes ping packet
@@ -366,8 +374,8 @@ fns.eventPacket = function (topic, event, data) {
  * @return {Object}
  */
 fns.pingPacket = function () {
-  return { t: codes.PING }
-}
+  return { t: codes.PING };
+};
 
 /**
  * Makes pong packet
@@ -377,7 +385,9 @@ fns.pingPacket = function () {
  * @return {Object}
  */
 fns.pongPacket = function () {
-  return { t: codes.PONG }
-}
+  return { t: codes.PONG };
+};
 
-export default Object.assign({ codes }, fns)
+var index = Object.assign({ codes: codes }, fns);
+
+export default index;
