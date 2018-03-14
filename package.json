@@ -1,6 +1,6 @@
 {
   "name": "@adonisjs/websocket-packet",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Verify,create adonis websocket packets",
   "main": "dist/wsp.node.js",
   "browser": "dist/wsp.browser.js",

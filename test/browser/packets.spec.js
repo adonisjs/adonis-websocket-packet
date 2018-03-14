@@ -237,9 +237,11 @@ group('EVENT', () => {
     assert.throw(fn, 'expected event to be a valid string')
   })
 
-  test('throw error when event body doesnt have data property', (assert) => {
-    const fn = () => packet.eventPacket('chat', 'greeting')
-    assert.throw(fn, 'eventPacket expects data to be passed as 3rd argument')
+  test('set data property to empty string when its not defined', (assert) => {
+    assert.deepEqual(packet.eventPacket('chat', 'greeting'), {
+      t: packet.codes.EVENT,
+      d: { topic: 'chat', event: 'greeting', data: '' }
+    })
   })
 
   test('throw error when event topic is undefined', (assert) => {
