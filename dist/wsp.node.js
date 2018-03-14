@@ -362,9 +362,7 @@ fns.leaveErrorPacket = function (topic, message) {
  * @throws {Error} If data is not defined
  */
 fns.eventPacket = function (topic, event, data) {
-  if (!data) {
-    throw new Error('eventPacket expects data to be passed as 3rd argument');
-  }
+  data = data || '';
   return makePacket(codes.EVENT, { topic: topic, event: event, data: data }, ['topic', 'event']);
 };
 
