@@ -1,3 +1,13 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/adonisjs/adonis-websocket-packet/compare/v1.0.5...v1.0.6) (2018-03-14)
+
+
+### Bug Fixes
+
+* **makeEvent:** allow event body to empty ([5dbbff7](https://github.com/adonisjs/adonis-websocket-packet/commit/5dbbff7))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/adonisjs/adonis-websocket-packet/compare/v1.0.4...v1.0.5) (2018-03-11)
 
